@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Shadcn/UI Base Colors - Light Mode (will be predominantly overridden by dark mode) */
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0a;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a0a0a;
+
+  --color-primary: #171717;
+  --color-primary-foreground: #fafafa;
+
+  --color-secondary: #f5f5f5;
+  --color-secondary-foreground: #171717;
+
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+
+  --color-accent: #f5f5f5;
+  --color-accent-foreground: #171717;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #fafafa;
+
+  --color-border: #e5e5e5;
+  --color-input: #e5e5e5;
+  --color-ring: #0a0a0a;
+
+  --color-chart-1: #e67e22;
+  --color-chart-2: #2d8659;
+  --color-chart-3: #1e3a5f;
+  --color-chart-4: #f1c40f;
+  --color-chart-5: #e74c3c;
+
+  /* Design System Specific Colors for Dark Mode */
+  --color-surface: #1a1a1a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #666666;
+  --color-interactive: #e5e5e5; /* Renamed from Interactive to Interactive for consistency */
+
+  /* Sidebar Specific Colors (based on Surface and Text Primary) */
+  /* Sidebar will primarily use --color-surface for background and --color-text-primary/secondary for text */
+  --color-sidebar: var(--color-surface);
+  --color-sidebar-foreground: var(--color-text-primary);
+  --color-sidebar-primary: var(--color-text-primary);
+  --color-sidebar-primary-foreground: var(--color-background); /* White text on active primary sidebar links */
+  --color-sidebar-accent: var(--color-accent); /* Using existing accent for consistency */
+  --color-sidebar-accent-foreground: var(--color-accent-foreground); /* Using existing accent-foreground */
+  --color-sidebar-border: var(--color-border);
+  --color-sidebar-ring: var(--color-ring);
+
+  /* Font Definitions */
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Shadcn/UI radii */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  /* Shadcn/UI animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e5e5; /* Base light border color */
+  }
+
+  :root {
+    /* Shadcn/UI Base Variables - Light Mode */
+    --background: var(--color-background);
+    --foreground: var(--color-foreground);
+    --card: var(--color-card);
+    --card-foreground: var(--color-card-foreground);
+    --popover: var(--color-popover);
+    --popover-foreground: var(--color-popover-foreground);
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-primary-foreground);
+    --secondary: var(--color-secondary);
+    --secondary-foreground: var(--color-secondary-foreground);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-foreground);
+    --accent: var(--color-accent);
+    --accent-foreground: var(--color-accent-foreground);
+    --destructive: var(--color-destructive);
+    --destructive-foreground: var(--color-destructive-foreground);
+    --border: var(--color-border);
+    --input: var(--color-input);
+    --ring: var(--color-ring);
+    --chart-1: var(--color-chart-1);
+    --chart-2: var(--color-chart-2);
+    --chart-3: var(--color-chart-3);
+    --chart-4: var(--color-chart-4);
+    --chart-5: var(--color-chart-5);
+    --radius: var(--radius-md); /* Default radius linked to md */
+
+    /* Sidebar Variables (Light Mode, mostly unused in dark-mode app) */
+    --sidebar-background: var(--color-sidebar);
+    --sidebar-foreground: var(--color-sidebar-foreground);
+    --sidebar-primary: var(--color-sidebar-primary);
+    --sidebar-primary-foreground: var(--color-sidebar-primary-foreground);
+    --sidebar-accent: var(--color-sidebar-accent);
+    --sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
+    --sidebar-border: var(--color-sidebar-border);
+    --sidebar-ring: var(--color-sidebar-ring);
+  }
+
+  /* Dark Mode specific variables (overriding light mode defaults) */
+  .dark {
+    --background: var(--color-background); /* #0a0a0a */
+    --foreground: var(--color-text-primary); /* #ffffff */
+    --card: var(--color-surface); /* #1a1a1a */
+    --card-foreground: var(--color-text-primary); /* #ffffff */
+    --popover: var(--color-surface); /* #1a1a1a */
+    --popover-foreground: var(--color-text-primary); /* #ffffff */
+    --primary: var(--color-interactive); /* #e5e5e5 */
+    --primary-foreground: var(--color-background); /* #0a0a0a (for text on interactive primary) */
+    --secondary: var(--color-text-muted); /* #666666 */
+    --secondary-foreground: var(--color-text-primary); /* #ffffff */
+    --muted: var(--color-text-muted); /* #666666 */
+    --muted-foreground: var(--color-text-secondary); /* #a3a3a3 */
+    --accent: var(--color-accent); /* #f4f4f4 */
+    --accent-foreground: var(--color-background); /* #0a0a0a */
+    --destructive: #ef4444; /* Retain default red for destructive */
+    --destructive-foreground: #fafafa;
+    --border: var(--color-border); /* #2a2a2a */
+    --input: var(--color-border); /* #2a2a2a */
+    --ring: var(--color-interactive); /* #e5e5e5 */ /* Used for focus rings, should stand out */
+    --chart-1: #e67e22; /* Keep defaults as no specific chart colors were provided for dark mode */
+    --chart-2: #2d8659;
+    --chart-3: #1e3a5f;
+    --chart-4: #f1c40f;
+    --chart-5: #e74c3c;
+
+    /* Sidebar Variables (Dark Mode) */
+    --sidebar-background: var(--color-sidebar); /* #1a1a1a */
+    --sidebar-foreground: var(--color-sidebar-foreground); /* #ffffff */
+    --sidebar-primary: var(--color-sidebar-primary); /* #ffffff */
+    --sidebar-primary-foreground: var(--color-background); /* #0a0a0a (for text on active primary sidebar links) */
+    --sidebar-accent: var(--color-sidebar-accent); /* #f4f4f4 */
+    --sidebar-accent-foreground: var(--color-sidebar-accent-foreground); /* #0a0a0a */
+    --sidebar-border: var(--color-sidebar-border); /* #2a2a2a */
+    --sidebar-ring: var(--color-sidebar-ring); /* #e5e5e5 */
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 2.25rem; /* ~36px */
+    line-height: 2.5rem; /* ~40px */
+  }
+
+  h2 {
+    font-size: 1.875rem; /* ~30px */
+    line-height: 2.25rem; /* ~36px */
+  }
+
+  h3 {
+    font-size: 1.5rem; /* ~24px */
+    line-height: 2rem; /* ~32px */
+  }
+
+  h4 {
+    font-size: 1.25rem; /* ~20px */
+    line-height: 1.75rem; /* ~28px */
+  }
+
+  h5 {
+    font-size: 1.125rem; /* ~18px */
+    line-height: 1.75rem; /* ~28px */
+  }
+
+  h6 {
+    font-size: 1rem; /* ~16px */
+    line-height: 1.5rem; /* ~24px */
+  }
+
+  p {
+    font-size: 1rem; /* Base size */
+    line-height: 1.5rem;
+  }
+
+  .text-xs {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1rem;
+  }
+
+  .text-sm {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem;
+  }
+
+  .text-base {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem;
+  }
+
+  .text-lg {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem;
+  }
+
+  .text-xl {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem;
+  }
+
+  .text-2xl {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .container {
+    margin-inline: auto;
+    padding-inline: 2rem;
+  }
+}
